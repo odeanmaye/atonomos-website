@@ -136,7 +136,7 @@
 
       .feature {
         border: 1px solid var(--line);
-        border-radius: 12px;
+        border-radius: 0;
         background: rgba(6, 25, 36, 0.34);
         backdrop-filter: blur(2px);
         padding: 1rem 1.05rem 1.05rem;
@@ -179,7 +179,7 @@
       .updates input {
         width: 100%;
         height: 2.95rem;
-        border-radius: 11px;
+        border-radius: 0;
         border: 1px solid rgba(143, 208, 235, 0.46);
         background: rgba(7, 26, 37, 0.8);
         color: var(--text);
@@ -197,7 +197,7 @@
         height: 2.95rem;
         min-width: 11rem;
         border: none;
-        border-radius: 11px;
+        border-radius: 0;
         font-family: "Sora", sans-serif;
         letter-spacing: 0.04em;
         font-size: 0.8rem;
@@ -316,13 +316,28 @@
           </article>
         </div>
 
-        <form id="updates-form" class="updates" aria-describedby="updates-status">
-          <input id="email" name="email" type="email" autocomplete="email" placeholder="you@company.com" required />
+        <form
+          id="updates-form"
+          class="updates"
+          aria-describedby="updates-status"
+          action="https://docs.google.com/forms/d/e/1FAIpQLSeN0Y_NlBuPG5V1P7cliJYCAs9PvhutIgFAA_TxB6NypPhN3w/formResponse"
+          method="post"
+          target="updates-submit-target"
+        >
+          <input
+            id="email"
+            name="entry.825911111"
+            type="email"
+            autocomplete="email"
+            placeholder="you@company.com"
+            required
+          />
           <button type="submit">Receive Updates</button>
         </form>
+        <iframe id="updates-submit-target" name="updates-submit-target" title="Updates submission target" hidden></iframe>
         <p class="status" id="updates-status" aria-live="polite"></p>
         <footer class="foot" aria-label="Site footer">
-          <p class="foot-left">The operating system for autonomous AI workers.</p>
+          <p class="foot-left">The Operating System for Autonomous AI Workers</p>
           <p class="foot-right">&copy; 2026 Acuvero LLC</p>
         </footer>
       </section>
@@ -330,32 +345,61 @@
 
     <script>
       const form = document.getElementById("updates-form");
+      const submitTarget = document.getElementById("updates-submit-target");
       const status = document.getElementById("updates-status");
       const emailInput = document.getElementById("email");
-      const storageKey = "atonomos-coming-soon-updates";
+      const submitButton = form.querySelector('button[type="submit"]');
+      const submitLabel = submitButton.textContent;
+      let isSubmitting = false;
+      let submitTimeoutId = null;
 
       form.addEventListener("submit", (event) => {
-        event.preventDefault();
         status.classList.remove("error");
-        const email = emailInput.value.trim().toLowerCase();
+        const email = emailInput.value.trim();
 
         if (!email) {
+          event.preventDefault();
           status.textContent = "Please enter an email address.";
           status.classList.add("error");
           return;
         }
 
-        const existing = JSON.parse(localStorage.getItem(storageKey) || "[]");
-        const hasEmail = existing.some((entry) => entry.email === email);
-
-        if (hasEmail) {
-          status.textContent = "You are already subscribed for updates.";
+        if (!emailInput.checkValidity()) {
+          event.preventDefault();
+          status.textContent = "Please enter a valid email address.";
+          status.classList.add("error");
           return;
         }
 
-        existing.push({ email, submittedAt: new Date().toISOString() });
-        localStorage.setItem(storageKey, JSON.stringify(existing));
+        isSubmitting = true;
+        submitButton.disabled = true;
+        submitButton.textContent = "Sending...";
+        status.textContent = "Sending...";
+
+        clearTimeout(submitTimeoutId);
+        submitTimeoutId = setTimeout(() => {
+          if (!isSubmitting) {
+            return;
+          }
+          isSubmitting = false;
+          status.textContent = "Could not submit right now. Please try again.";
+          status.classList.add("error");
+          submitButton.disabled = false;
+          submitButton.textContent = submitLabel;
+        }, 12000);
+      });
+
+      submitTarget.addEventListener("load", () => {
+        if (!isSubmitting) {
+          return;
+        }
+
+        clearTimeout(submitTimeoutId);
+        isSubmitting = false;
+        status.classList.remove("error");
         status.textContent = "Thanks. You are on the list for Atonomos launch updates.";
+        submitButton.disabled = false;
+        submitButton.textContent = submitLabel;
         form.reset();
       });
     </script>
