@@ -233,7 +233,23 @@
         margin-top: 1.9rem;
         color: #9eb9c7;
         font-size: 0.84rem;
-        text-align: center;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 0.8rem;
+        align-items: center;
+      }
+
+      .foot p {
+        margin: 0;
+      }
+
+      .foot-left {
+        text-align: left;
+      }
+
+      .foot-right {
+        text-align: right;
+        font-weight: 700;
       }
 
       @media (max-width: 900px) {
@@ -257,6 +273,15 @@
 
         .headline {
           max-width: 20ch;
+        }
+
+        .foot {
+          grid-template-columns: 1fr;
+          gap: 0.45rem;
+        }
+
+        .foot-right {
+          text-align: left;
         }
       }
     </style>
@@ -296,7 +321,10 @@
           <button type="submit">Receive Updates</button>
         </form>
         <p class="status" id="updates-status" aria-live="polite"></p>
-        <p class="foot">Launching soon for enterprise teams building autonomous AI workforces.</p>
+        <footer class="foot" aria-label="Site footer">
+          <p class="foot-left">The operating system for autonomous AI workers.</p>
+          <p class="foot-right">&copy; 2026 Acuvero LLC</p>
+        </footer>
       </section>
     </main>
 
