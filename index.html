@@ -291,7 +291,7 @@
       <section class="hero" aria-labelledby="coming-soon-heading">
         <p class="coming-soon">Coming Soon</p>
         <h1 class="logo">&#257;tonom&#333;s</h1>
-        <h2 class="headline" id="coming-soon-heading">The Operating System for Autonomous AI Workers</h2>
+        <h2 class="headline" id="coming-soon-heading">Your Agentic AI Workforce</h2>
         <p class="intro">
           Atonomos provides the infrastructure enterprises need to safely deploy, govern, and scale autonomous AI
           agents across their organization.
@@ -299,20 +299,20 @@
 
         <div class="feature-grid">
           <article class="feature">
-            <h3>Operationalize AI at Scale</h3>
-            <p>Deploy, manage, and coordinate thousands of autonomous agents performing real business work.</p>
+            <h3>Operate at Scale</h3>
+            <p>Deploy, manage, and coordinate thousands of autonomous AI agents performing real business work.</p>
           </article>
           <article class="feature">
-            <h3>Secure Infrastructure for AI Workers</h3>
-            <p>Manage agents the same way you manage human employees with identity, permissions, and full auditability.</p>
+            <h3>Manage Identity</h3>
+            <p>Manage agents the same way you manage human employees with identity and full auditability.</p>
           </article>
           <article class="feature">
-            <h3>Enterprise-Grade Control</h3>
+            <h3>Control Permissions</h3>
             <p>Define what agents can access, what they can execute, and how they interact with critical business systems.</p>
           </article>
           <article class="feature">
-            <h3>Provider-Agnostic Architecture</h3>
-            <p>Run agents on any model, inference provider, or cloud environment.</p>
+            <h3>Run Anywhere</h3>
+            <p>Operate agents across any AI model and compute environment with full portability.</p>
           </article>
         </div>
 
@@ -337,7 +337,7 @@
         <iframe id="updates-submit-target" name="updates-submit-target" title="Updates submission target" hidden></iframe>
         <p class="status" id="updates-status" aria-live="polite"></p>
         <footer class="foot" aria-label="Site footer">
-          <p class="foot-left">The Operating System for Autonomous AI Workers</p>
+          <p class="foot-left">ātonomōs is your AI workforce.</p>
           <p class="foot-right">&copy; 2026 Acuvero LLC</p>
         </footer>
       </section>
@@ -382,7 +382,7 @@
             return;
           }
           isSubmitting = false;
-          status.textContent = "Could not submit right now. Please try again.";
+          status.textContent = "Error. Please try again.";
           status.classList.add("error");
           submitButton.disabled = false;
           submitButton.textContent = submitLabel;
@@ -397,7 +397,7 @@
         clearTimeout(submitTimeoutId);
         isSubmitting = false;
         status.classList.remove("error");
-        status.textContent = "Thanks. You are on the list for Atonomos launch updates.";
+        status.textContent = "You're in! We'll email you updates as the ātonomōs project launches.";
         submitButton.disabled = false;
         submitButton.textContent = submitLabel;
         form.reset();
